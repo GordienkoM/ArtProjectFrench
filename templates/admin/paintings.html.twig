@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin
+{% endblock %}
+
+{% block body %}
+	{# Insertion de navigation d'administration #}
+	{% embed "admin/index.html.twig" %}{% endembed %}
+	
+	<div class="uk-section uk-section">	
+		<div class="uk-container uk-container-large">
+			{% if editMode %}
+				<h1>Editer des donnés de tableaux</h1>
+				<div class="uk-container uk-container-large">
+					{{ form(formPainting) }}
+				</div>
+
+			{% else %}
+				<h1>Ajouter un nouveau tableau</h1>
+				<div class="uk-container uk-container-large">
+					{{ form(formPainting) }}
+				</div>
+			{% endif %}
+
+
+			<h1>Liste des tableaux</h1>
+			<table class='uk-table uk-table-hover uk-table-divider'>
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Nom</th>
+						<th>Description</th>
+						<th>Catégorie</th>
+						<th>Image</th>
+						<th>Prix</th>
+						<th>Prix avec la réduction</th>
+						<th>L'année de création</th>
+						<th>Taille</th>
+						<th>Materiel</th>
+						<th>Afficher</th>
+						<th>Original</th>
+						<th>Editer</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for painting in paintings %}
+						<tr>
+							<td><img src="{{ asset('images/galleryImages/small_' ~ painting.galleryImage) }}" alt="L'image de tableau {{ painting.name }}" class="painting-admin-image"></td>
+							<td>{{ painting.name }}</td>
+							<td>{{ painting.discription }}</td>
+							<td>
+								<ul class="uk-list">
+									{% for category in painting.categories  %}          
+										<li> {{ category.name }} </li>
+									{% endfor %}
+								</ul>	
+							</td>
+														<td>
+								<ul class="uk-list">
+									{% for image in painting.paintingImages  %}          
+										<li> {{ image.name }} </li>
+									{% endfor %}
+								</ul>	
+							</td>
+							<td>
+								Original</br>
+								{{ painting.priceOriginal }}</br>
+								Reproduction</br>
+								{{ painting.priceReproduction }}</br>
+								<br>Fresco</br>
+								{{ painting.priceFresco }}
+							</td>
+							<td>
+								Original avec la réduction</br>
+								{{ painting.priceOriginalSale }}</br>
+								Reproduction avec la réduction</br>
+								{{ painting.priceReproductionSale }}</br>
+								Fresco avec la réduction</br>
+								{{ painting.priceFrescoSale }}
+							</td>
+							<td>{{ painting.creationYear}}</td>
+							<td>{{ painting.hight}} X {{ painting.width }}</td>
+							<td>{{ painting.material }}</td>
+							<td>
+								{% if painting.disponibility %}
+								Oui 
+								{% else %}
+								Non
+								{% endif %}
+							</td>
+							<td>
+								{% if painting.disponibility %}
+								Saled 
+								{% else %}
+								En Stock
+								{% endif %}			
+							<td>
+								<!-- https://getuikit.com/docs/icon -->
+								<a class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" href="{{ path('painting_edit', {id:painting.id} ) }}"></a> 
+								<a class="uk-icon-link" uk-icon="trash" href="{{ path('painting_delete', {id:painting.id} ) }}"></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>			
+{% endblock %}

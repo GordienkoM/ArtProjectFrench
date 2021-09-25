@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration, images des tableaux{% endblock %}
+
+{% block body %}
+	{# Insertion de navigation d'administration #}
+	{% embed "admin/index.html.twig" %}{% endembed %}
+	
+	<div class="uk-section uk-section-default">	
+		<div class="uk-container uk-container-large">
+			<h2>Ajouter image d'un tableau</h2>
+			{{ form(formPaintingImage) }}
+
+			<h2>Liste des tableaux</h2>
+			<table class='uk-table uk-table-hover uk-table-divider'>
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Suprimer</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for paintingImage in paintingImages %}
+						<tr>
+							<td>{{ paintingImage.name }}</td>
+							<td>
+								<a class="uk-icon-link" uk-icon="trash" href="{{ path('paintingImage_delete', {id:paintingImage.id}) }}"></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</tbody>
+		</table>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{lesson.title}}
+{% endblock %}
+
+{% block body %}
+	<h1 class="uk-padding-top uk-text-center" >Lesson {{lesson.title}}</h1>
+	<div class="uk-child-width-1-2 uk-text-center" uk-grid>
+		<div  class="uk-padding">
+			<video src="{{ asset('videos/' ~ lesson.video) }}" loop muted playsinline uk-video="autoplay: inview"></video>
+		</div>
+		<div class="uk-padding-large">
+			<p>le prix est {{ lesson.price }} rubles</p>
+			<p class="uk-text-italic uk-text-large uk-text-center"> {{lesson.description}}</p>	
+		</div>
+	</div>
+	
+	
+
+{% endblock %}

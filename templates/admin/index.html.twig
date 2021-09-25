@@ -1,0 +1,17 @@
+{% block menu %}
+
+<nav id='nav-admin' class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="{{ path('home') }}">Demandes</a></li>
+            <li><a href="{{ path('painting_add') }}">Tableaux</a></li>
+            <li><a href="{{ path('paintingImages') }}">Images des tableaux</a></li>
+            <li><a href="{{ path('categories') }}">Catégories</a></li>
+            <li><a href="{{ path('keyWords') }}">Mots clés</a></li>
+            <li><a href="{{ path('lesson_add') }}">Leçons</a></li>
+            <li><a href="{{ path('course_add') }}">Cours</a></li>
+        </ul>
+    </div>
+</nav>
+    
+{% endblock %}

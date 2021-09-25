@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+        {% block stylesheets %}
+			<!-- UIkit CSS -->
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.21/dist/css/uikit.min.css"/>
+
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+			<link rel="stylesheet" href="{{asset('css/style.css')}}">
+		{% endblock %}
+
+		{% block javascripts %}
+			<!-- UIkit JS -->
+			<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.21/dist/js/uikit.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.21/dist/js/uikit-icons.min.js"></script>
+
+			{# <script src="{{asset('js/js.js')}}" defer></script>  #}
+		{% endblock %}
+	</head>
+	{# This will be a comment #}
+	<body id="body-container" class="uk-container uk-container-xlarge">
+
+		<nav id="links-nav"  class="uk-grid-collapse uk-child-width-expand@s uk-text-center uk-visible@s" uk-grid >
+			<div class="uk-text-left">
+				<a href="" class="uk-icon-button uk-margin-small-right" uk-icon="whatsapp"></a>
+				<a href="" class="uk-icon-button  uk-margin-small-right"><i class="fab fa-viber"></i></a>
+				<a target="_blank" href="https://www.instagram.com/artkozi/" title="Инстаграм художницы Ирины Кузнецовой" class="uk-icon-button uk-margin-small-right" uk-icon="instagram"></a>
+				<a target="_blank" href="https://www.facebook.com/artkozlova" title="FaceBook художницы Ирины Кузнецовой" class="uk-icon-button  uk-margin-small-right" uk-icon="facebook"></a>
+				<a target="_blank" href="https://vk.com/ikozart" class="uk-icon-button  uk-margin-small-right" uk-icon=""><i class="fab fa-vk"></i></a>
+				<a href="" class="uk-icon-button uk-margin-small-right" ><i class="fab fa-telegram-plane"></i></a>
+				<a target="_blank" href="https://www.youtube.com/channel/UCUu97jCyEiwFAzdK_dGvcbg/videos" class="uk-icon-button" uk-icon="youtube"></a>
+			</div>
+			<div class="uk-text-right">	
+				{% if app.user %}
+					Bonjour, {{ app.user.name }}					
+					<a href="{{ path('app_logout') }}" class="uk-link-heading uk-padding-small">Déconnexion</a>
+				{% else %}
+					<a href="{{ path('app_register') }}" class="uk-link-heading uk-padding-small">Inscription</a>
+					<a href="{{ path('app_login') }}" class="uk-link-heading uk-padding-small">Connexion</a>
+				{% endif %}
+			</div>
+		</nav>
+
+		<nav class="uk-navbar-container uk-padding-small" uk-navbar>
+
+			<a class="uk-navbar-item uk-logo uk-visible@s" href="{{ path('home') }}">
+				<img id="logo" src="{{ asset('images/logo.jpg') }}" alt="logo">
+			</a>
+			<div class="uk-margin-left">
+				<div class="uk-text-large">Studio "Irina Art"</div>
+				<div class="uk-text-large">+79518726432</div>
+			</div>
+			<div class="uk-navbar-right">
+				<ul class="uk-navbar-nav uk-visible@m">
+					<li class="uk-navbar-item">
+						<a href="{{ path('home') }}">Accuil</a>
+					</li>
+					<li class="uk-navbar-item">
+						<a href="{{ path('paintings') }}">Galerie</a>
+					</li>
+					<li class="uk-navbar-item">
+						<a href="{{ path('lessons_cours') }}">Leçons et cours</a>
+					</li>
+					{% if is_granted("ROLE_ADMIN") %}
+						<li class="uk-navbar-item">
+							<a href="{{ path('requests') }}">Admin</a>
+						</li>
+					{% endif %}				
+                    <li>
+                        <a href="">Infos</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li>
+                                    <a href="{{ path('about_artist') }}">Sur l'artist</a>
+                                </li>
+                                {# <li>
+                                    <a href="{{ path('articles') }}">Статьи</a>
+                                </li> #}
+                                <li>
+                                    <a href="{{ path('home') }}">Contats</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {# <li class="uk-navbar-item">
+						<a href="{{ path('home') }}" uk-icon="icon: heart"></a>
+					</li> #}
+                    <li class="uk-navbar-item">
+						<a href="{{ path('cart') }}" uk-icon="cart"></a>
+					</li>                   
+				</ul>
+			</div>
+			<a href="#" class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle="target: #sidenav"></a>
+		</nav>
+		<div id="sidenav" uk-offcanvas="flip: true" class="uk-offcanvas">
+			<div class="uk-offcanvas-bar">
+				<ul class="uk-nav">
+					<li class="uk-navbar-item">
+						<a href="{{ path('home') }}">Accuil</a>
+					</li>
+					<li class="uk-navbar-item">
+						<a href="{{ path('paintings') }}">Galerie</a>
+					</li>
+					<li class="uk-navbar-item">
+						<a href="{{ path('lessons_cours') }}">Leçons et cours</a>
+					</li>
+					{% if is_granted("ROLE_ADMIN") %}
+						<li class="uk-navbar-item">
+							<a href="{{ path('requests') }}">Admin</a>
+						</li>
+					{% endif %}	
+					 <li class="uk-navbar-item">
+						<a href="{{ path('about_artist') }}">Sur l'artist</a>
+					</li>
+					{# <li class="uk-navbar-item">
+						<a href="{{ path('articles') }}">Статьи</a>
+					</li> #}
+					<li class="uk-navbar-item">
+						<a href="{{ path('home') }}">Contats</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+            {# 
+
+                {% for message in app.fleches('error') %}
+                    <mark>Error : {{ message }}</mark>       
+                {% endfor %}
+
+                {% for message in app.fleches('success') %}
+                    <mark>Success : {{ message }}</mark>       
+                {% endfor %}
+
+
+            #}
+		<main >
+			{% block body %}
+
+		
+			{% endblock %}
+		</main>
+
+		<footer  class="uk-section uk-section-secondary uk-light uk-padding-large">
+			<div class="uk-container">
+				<div id="footer-grid" class="uk-grid-match uk-child-width-1-3@m" uk-grid>
+					<div>
+						<h3 class="uk-text-center">Aide</h3>
+						<p><a class="uk-link-muted" href="{{ path('home') }}">Comment faire une commande</a></p>
+						<p><a class="uk-link-muted" href="{{ path('home') }}">Comment acheter une peinture</a></p>
+						<p><a class="uk-link-muted" href="{{ path('home') }}">Comment acheter un cours, une leçon</a></p>
+						<p><a class="uk-link-muted" href="{{ path('home') }}">À propos de l'artiste</a></p>
+						<p><a class="uk-link-muted" href="{{ path('home') }}">Livraison et paiement</a></p>
+						<p><a class="uk-link-muted" href="{{ path('home') }}">Garanties et retours</a></p>
+					</div>
+					<div>
+						<h3 class="uk-text-center">Contacts</h3>
+						<p class="uk-text-large" >+79518726432</p>
+						<p class="uk-text-large uk-margin-bottom">kuznetsova-i-v@mail.ru</p>
+						<p class="uk-link-muted">WhatsApp </p>
+						<p class="uk-link-muted">Viber </p>
+						<p><a class="uk-link-muted" target="_blank" href="https://www.instagram.com/artkozi/" title="Инстаграм художницы Ирины Кузнецовой" >Instagram</a></p>
+						<p><a class="uk-link-muted" target="_blank" href="https://www.facebook.com/artkozlova" title="FaceBook художницы Ирины Кузнецовой" >Facebook</a></p>
+						<p><a class="uk-link-muted" target="_blank" href="https://vk.com/ikozart">VK </a></p>
+						<p class="uk-link-muted">Telegram</p>
+						<p><a class="uk-link-muted" target="_blank" href="https://www.youtube.com/channel/UCUu97jCyEiwFAzdK_dGvcbg/videos">YouTube</a></p>
+					</div>
+					<div class="uk-visible@s">
+						<h3 class="uk-flex uk-flex-center"> <div id="heart"></div>Rejoignez-nous</h3>
+						<div id="footer-image" class="uk-child-width-expand@s uk-text-center" uk-grid>
+							<div>
+								<a target="_blank" href="https://www.facebook.com/artkozlova">
+									<img src="{{ asset('images/facebook.jpg') }}" alt="facebook">
+								</a>
+							</div>
+							<div>
+								<a target="_blank" href="https://www.instagram.com/artkozi/">
+									<img src="{{ asset('images/instagram.jpg') }}" alt="instagram">
+								</a>
+							</div>
+						</div>	
+											
+					</div>
+				</div>	
+			</div>
+		</footer>
+	</body>
+	
+</html>
+

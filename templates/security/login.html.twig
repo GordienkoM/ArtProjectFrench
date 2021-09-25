@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="uk-flex uk-flex-column uk-flex-center"></div>
+    <h1 class=" uk-text-center">Connectez-vous</h1>
+    <div class="uk-container uk-container-small">
+        <form class=" uk-form-stacked uk-card uk-card-default uk-card-large uk-card-body" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+            
+            <label class="uk-margin-large" for="inputEmail">Email</label> <br>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="uk-input" autocomplete="email" required autofocus><br>
+            <label class="uk-margin-large" for="inputPassword">Mot de passe</label><br>
+            <input type="password" name="password" id="inputPassword" class="uk-input" autocomplete="current-password" required><br>
+
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+            #}
+
+            <button class="uk-button uk-button-secondary uk-margin-large" type="submit">
+                Se connecter
+            </button>
+        </form>
+        <div class=" uk-margin-medium  uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <p>Vous n'avez pas encore de compte ?</p>
+            <p>Vous pouvez  <a href="{{ path('app_register') }}">vous enregistrer</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

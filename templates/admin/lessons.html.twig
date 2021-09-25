@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administation, leçons {% endblock %}
+{% block body %}
+	{# Insertion de navigation d'administration #}
+	{% embed "admin/index.html.twig" %}{% endembed %}
+	
+	<div class="uk-section uk-section-default">	
+		<div class="uk-container uk-container-large">
+			<h2>Ajouter un leçon</h2>
+			{{ form(formLesson) }}
+
+			<h2>Liste des leçons</h2>
+			<table class='uk-table uk-table-hover uk-table-divider'>
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Nom</th>
+						<th>Description</th>
+						<th>Vidéo</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for lesson in lessons %}
+						<tr>
+							<td><img src="{{ asset('images/lessonImages/' ~ lesson.image) }}" alt="L'image de  {{ lesson.title }}" class="lesson-admin-image"></td>
+							<td>{{ lesson.title}}</td>
+							<td>{{ lesson.description}}</td>
+							<td>{{ lesson.video}}</td>
+							<td>
+								<!-- https://getuikit.com/docs/icon -->
+								<a class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" href="{{ path('lesson_edit', {id:lesson.id} ) }}"></a> 
+								<a class="uk-icon-link" uk-icon="trash" href="{{ path('lesson_delete', {id:lesson.id} ) }}"></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</tbody>
+		</table>
+		</div>
+	</div>
+{% endblock %}

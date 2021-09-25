@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin
+{% endblock %}
+
+{% block body %}
+	{# Insertion de navigation d'administration #}
+	{% embed "admin/index.html.twig" %}{% endembed %}
+	
+	<div class="uk-section uk-section">	
+			<h1>Liste des demandes</h1>
+			<table class='uk-table uk-table-hover uk-table-divider'>
+				<thead>
+					<tr>
+						<th>Téléphone</th>
+						<th>Nom</th>
+						<th>Date</th>
+						<th>Commantaire</th>
+						<th>Traité</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for generalRequest in generalRequests %}
+						<tr>
+							{% if generalRequest.id == editGeneralRequestId %}
+								{{ form_start(formGeneralRequest) }}
+									<td>
+										{{ form_widget(formGeneralRequest.phone) }}
+									</td>
+									<td>
+										{{ form_widget(formGeneralRequest.name) }}
+									</td>
+									<td>{{ generalRequest.createdAt|date("m/d/Y H:i:s") }}</td>
+									<td>
+										{{ form_widget(formGeneralRequest.adminComment) }}
+									</td>
+									<td>
+										Traité {{ form_widget(formGeneralRequest.status) }}
+									</td>
+
+									<td class="uk-text-center">
+										{{ form_widget(formGeneralRequest.submit) }}
+									</td>
+								{{ form_end(formGeneralRequest) }} 
+							{% else %}								
+								<td>{{ generalRequest.phone }}</td>
+								<td>{{ generalRequest.name }}</td>
+								<td>{{ generalRequest.createdAt|date("H:i d/m/Y") }}</td>
+								<td>{{ generalRequest.adminComment}}</td>
+								<td>
+									{% if generalRequest.status %}
+									Oui 
+									{% else %}
+									Non
+									{% endif %}
+								</td>
+								<td>
+									<a class="uk-icon-link uk-margin-small-right" uk-icon="file-edit" href="{{ path('general_request_edit', {id:generalRequest.id} ) }}"></a> 
+									<a class="uk-icon-link" uk-icon="trash" href="{{ path('general_request_delete', {id:generalRequest.id} ) }}"></a>
+								</td>
+							{% endif %}							
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div> #}
+	</div>			
+{% endblock %}

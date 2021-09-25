@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ painting.name }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="uk-flex">
+		<div id="image-viewer" class="uk-padding">
+
+			<ul id="main-image" class="uk-switcher">
+			{% for image in painting.paintingImages %}
+				<li class="painting-show"><img src="{{ asset('images/paintings/' ~ image.name) }}" alt="{{ painting.name}}"></li>
+			{% endfor %}
+			</ul>
+			<ul id="viewer-switcher" class="uk-subnav uk-subnav-pill" uk-switcher="connect: #main-image">
+			{% for image in painting.paintingImages %}
+				<li class="painting-show-small"><a href="#"><img src="{{ asset('images/paintings/' ~  image.name) }}" alt="{{ painting.name}}"></a></li>
+			{% endfor %}
+			</ul>
+
+		</div>
+		<div class="uk-padding">
+			<div>
+				<h1 class="">{{painting.name}}</h1>
+				<div>Artiste Irina Kozlova-Kuznetsova</div>
+				<table class="uk-table">
+					<tr>
+						<td>Originale du tableau</td>
+						<td>{{ painting.priceOriginal }} rubles</td>
+						<td><a class="uk-button uk-button-secondary uk-button-small" href="{{ path('cart_painting_add', {'id': painting.id,'type': 'Original'}) }}" >Ajouter au panier</a></td>
+					</tr>
+					<tr>
+						<td>Reproduction du tableau</td>
+						<td>{{ painting.priceReproduction }} rubles</td>
+						<td><a class="uk-button uk-button-secondary uk-button-small" href="{{ path('cart_painting_add', {'id': painting.id,'type': 'Reproduction'}) }}" >Ajouter au panier</a></td>
+					</tr>
+					<tr>
+						<td>Fresque urbaine</td>
+						<td>{{ painting.priceFresco }} rubles</td>
+						<td><a class="uk-button uk-button-secondary uk-button-small" href="{{ path('cart_painting_add', {'id': painting.id,'type': 'Fresque'}) }}" >Ajouter au panier</a></td>
+					</tr>
+				</table>
+				<p>La livraison en Russie est gratuite <br>
+				La livraison dans le monde entier est discutée séparément
+				</p>
+				<p>Les prix sont indiqués pour une reproduction de tableau et une fresque de 70x50 cm <br>
+				Vous pouvez commander n'importe quelle taille
+				</p>
+				<p> Article : {{painting.id}} <br>
+				Taille : {{ painting.hight}} X {{ painting.width }} cm <br>
+				Matériel: {{ painting.material }}<br>
+				Année de création : {{ painting.creationYear }}
+				</p>
+			</div>
+		</div>
+	</div>
+	<p class="uk-text-italic uk-text-large uk-text-center"> {{painting.discription}}</p>
+	<hr>
+	<p class="uk-padding">Ici vous pouvez choisir et acheter une peinture de l'artiste Irina Kozlova-Kuznetsova, ou commander une reproduction ou une fresque urbaine de n'importe quelle taille
+		Les reproductions sont réalisées sur toile ou papier d'art texturé qui recrée le relief de la toile. Une technologie d'impression spéciale offre une profondeur de couleur qui correspond à la qualité des reproductions similaires dans les plus grands musées du monde. Vous pouvez acheter une reproduction pour votre intérieur ou comme cadeau magnifique et exclusif pour vos proches.
+		La fresque urbaine (giclée) est une technologie nouvelle et actuellement unique pour recréer une peinture sur toile et autres surfaces avec le maximum de variété de texture et de qualité de rendu des couleurs, parfois comparable aux peintures originales. L'image haute résolution est transférée sur une surface texturée (la texture de chaque œuvre est effectuée manuellement), créant ainsi une œuvre très réaliste. Chaque exemplaire porte la signature personnelle de l'auteur.
+		Livraison partout en Russie et dans le monde.</p>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+<div class="uk-flex uk-flex-column uk-flex-center"></div>
+    <h1 class=" uk-text-center">Inscription</h1>
+    <div class="uk-container uk-container-small uk-padding">
+        {# {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email, {
+                label: 'email',
+                class: 'uk-input'
+            }) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe',
+                class: 'uk-input'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <button type="submit" class="btn">Enregistrer</button>
+        {{ form_end(registrationForm) }} #}
+        
+            {{ form(registrationForm) }}
+       
+    </div>
+</div>
+{% endblock %}

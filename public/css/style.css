@@ -1,0 +1,212 @@
+*{
+    box-sizing: border-box;
+}
+
+
+body{
+    min-height: 100vh; /* 100 % de l'auteur*/
+}
+
+#links-nav{
+	background-color: rgb(243, 240, 240)
+}
+
+#nav-admin{
+	background-color: rgb(202, 203, 212)
+}
+
+
+main{
+
+    background-color:rgb(244, 244, 248);
+}
+
+
+
+#logo{
+    height:85px;
+}
+
+.cart-image{
+	max-height: 80px;
+}
+
+.painting-admin-image{
+	max-height: 200px;
+}
+
+.lesson-admin-image{
+	max-height: 100px;
+}
+
+
+#artist{
+	width: 400px;
+	height: 500px;
+}
+
+#image-viewer{
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+#main-image{
+	flex: 1 0 auto;
+	min-height: 75%;
+}
+
+#viewer-switcher{
+	height: 80px;
+	flex-shrink: 0;
+	
+}
+
+.painting-show{
+	width: 450px;
+	height: 450px;
+	text-align: center;
+	background-color: rgb(169, 169, 169);
+}
+
+.painting-show img{
+	object-fit: contain;
+	height: 100%;
+}
+
+.painting-show-small{
+	width: 80px;
+	height: 80px;
+	box-sizing: content-box;
+}
+
+.painting-show-small img{
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+
+
+/*----------------------------------------------*/
+
+#myslide {
+    width: 350px;
+	height: 550px;
+	border: 3px solid black;
+	position: relative;
+	overflow: hidden;
+	/* cursor: col-resize; */
+}
+#one, #two {
+	height: 550px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+}
+#one {
+    width: 350px;
+	
+}
+#two {
+    width: 187px;
+	background: blue url('../images/after.jpg') no-repeat top left;
+	background-size: auto 100%;
+	
+
+} 
+
+
+
+/*----------------------------------------------*/
+
+#footer-grid div p{
+	margin: 0 0 2px 0;
+}
+
+#footer-image img{
+	max-width: 150px
+}
+
+/*----------------  https://jsfiddle.net/qLfg2mrd/ ----------------*/
+
+@keyframes heartbeat {
+	0% {
+	  transform: scale( .75);
+	}
+	20% {
+	  transform: scale( 1);
+	}
+	40% {
+	  transform: scale( .75);
+	}
+	60% {
+	  transform: scale( 1);
+	}
+	80% {
+	  transform: scale( .75);
+	}
+	100% {
+	  transform: scale( .75);
+	}
+  }
+  
+  #heart {
+	position: relative;
+	width: 40px;
+	height: 36px;
+	animation: heartbeat 1s infinite;
+  }
+  
+  #heart:before,
+  #heart:after {
+	position: absolute;
+	content: "";
+	left: 20px;
+	top: 0;
+	width: 20px;
+	height: 36px;
+	background: red;
+	-moz-border-radius: 20px 20px 0 0;
+	border-radius: 20px 20px 0 0;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	-webkit-transform-origin: 0 100%;
+	-moz-transform-origin: 0 100%;
+	-ms-transform-origin: 0 100%;
+	-o-transform-origin: 0 100%;
+	transform-origin: 0 100%;
+  }
+  
+  #heart:after {
+	left: 0;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	-webkit-transform-origin: 100% 100%;
+	-moz-transform-origin: 100% 100%;
+	-ms-transform-origin: 100% 100%;
+	-o-transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
+  }
+
+  /*----------------------------------------------*/
+.painting{
+	width: auto;
+	overflow: hidden;
+}
+
+.painting img{
+	transition: transform 0.5s;
+	object-fit: cover;
+	height: 100%;
+}
+.painting:hover img{
+	transform: scale(1.1);
+}

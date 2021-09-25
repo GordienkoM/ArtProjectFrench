@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block body %}
+
+<div class="uk-container-large uk-padding">
+    {# Filter Uikit #}
+    <div uk-filter="target: .js-filter">
+        <ul class="uk-subnav uk-subnav-pill uk-flex uk-flex-center ">
+            <li class="uk-active" uk-filter-control><a href="#">Tout</a></li>
+            {% for category in categories %}
+                <li uk-filter-control="[data-color='{{category.name}}']"><a href="#">{{category.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <p class="uk-text-large uk-text-center">Ici, vous pouvez choisir et acheter une peinture de l'artiste Irina Kozlova
+        Kuznetsova dans une gamme de prix abordable. Nous livrons des peintures dans toute la Russie et dans le monde.</p>
+        <ul class="js-filter uk-child-width-1-2 uk-child-width-1-4@m uk-text-center" uk-grid>
+        {% for painting in paintings %}
+            {% for category in painting.categories %}
+                <li data-color="{{category.name}}">
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-media-top uk-text-center">
+                            <div class="uk-text-center">
+                                {# Transition (Bottom) Uikit #}
+                                <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                                    <img src="{{ asset('images/galleryImages/small_' ~ painting.galleryImage) }}" alt="">
+                                    <div class="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-default">
+                                        <p class="uk-h4 uk-margin-remove"><a class="uk-link-text" 
+                                         href="{{ path('painting_show', {'id': painting.id}) }}" >Acheter</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-card-body">
+                            <p class="uk-text-bold uk-text-center uk-margin-small">{{painting.name}}</p>
+                            <p class="uk-text-muted uk-text-small uk-text-center uk-margin-small">
+                            {{ painting.hight}} X {{ painting.width }} cm, {{painting.material}}</p>
+                            <div class="uk-text-center"><a class="uk-button uk-button-secondary uk-button-small"
+                            href="{{ path('painting_show', {'id': painting.id}) }}" >Voir le prix</a></div>
+                        </div>               
+                    </div>
+                </li>
+            {% endfor %}
+        {% endfor %} 
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

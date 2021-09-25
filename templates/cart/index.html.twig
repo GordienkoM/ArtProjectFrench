@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <div class="uk-padding-large">
+        <h1>Votre panier</h1>
+
+        {% if paintingItems is empty and lessonItems is empty %}
+            <p class="uk-text-center uk-text-large uk-text-italic uk-margin-large">Votre panier est vide</p>
+        {% else %}
+            <table class="uk-table uk-margin-large">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Produit</th>
+                        <th>Type</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {# Affichage des tableaux #}
+                    {% for item in paintingItems %}
+                        <tr>
+                            <td><img src="{{ asset('images/galleryImages/small_' ~ item.painting.galleryImage) }}" 
+                            alt="L'image de tableau {{ item.painting.name }}" class="cart-image"></td>
+                            <td>{{ item.painting.name }}</td>
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.painting.priceOriginal }} rubles</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.quantity * item.painting.priceOriginal }} rubles</td>
+                            <td>
+                                {% if item.type !='Original' %}
+                                    <a href="{{ path("cart_painting_add", {'id': item.painting.id,'type': item.type}) }}"
+                                     class="uk-margin-small-right uk-icon-link" uk-icon="plus"></a>
+                                    <a href="{{ path("cart_painting_remove", {'id': item.painting.id,'type': item.type}) }}"
+                                     class="uk-margin-small-right uk-icon-link" uk-icon="minus"></a>
+                                {% endif %}
+                                <a href="{{ path("cart_painting_delete", {'id': item.painting.id,'type': item.type}) }}" 
+                                    class="uk-margin-small uk-icon-link" uk-icon="trash"></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {# Affichage des lessons #}
+                    {% for lesson in lessonItems %}
+                        <tr>
+                            <td><img src="{{ asset('images/lessonImages/' ~ lesson.image) }}" alt="L'image de {{ lesson.title }}" class="cart-image"></td>
+                            <td>{{ lesson.title }}</td>
+                            <td>Leçon</td>
+                            <td>{{ lesson.price }} rubles</td>
+                            <td>1</td>
+                            <td>{{ lesson.price }} rubles</td>
+                            <td>
+                                <a href="{{path("cart_lesson_delete", {id: lesson.id})}}" class="uk-margin-small uk-icon-link" uk-icon="trash"></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {# Affichage des cours #}
+                    {% for course in courseItems %}
+                        <tr>
+                            <td><img src="{{ asset('images/lessonImages/' ~ course.image) }}" alt="L'image de {{ course.title }}" class="cart-image"></td>
+                            <td>{{ course.title }}</td>
+                            <td>Cours</td>
+                            <td>{{ course.price }} rubles</td>
+                            <td>1</td>
+                            <td>{{ course.price }} rubles</td>
+                            <td>
+                                <a href="{{path("cart_course_delete", {id: course.id})}}" class="uk-margin-small uk-icon-link" uk-icon="trash"></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="uk-text-large">Total</td>
+                        <td class="uk-text-large">{{ total }} rubles</td>
+                    </tr>
+                </tfoot>       
+            </table>
+            <p class="uk-text-center">
+                <a href="{{path("cart_delete_all")}}" class="uk-button uk-button-secondary uk-button-large"> Vider tout le panier</a>
+            </p>
+        {% endif %}
+    </div>    
+{% endblock %}

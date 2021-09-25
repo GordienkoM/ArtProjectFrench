@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration, mots clés{% endblock %}
+
+{% block body %}
+	{# Insertion de navigation d'administration #}
+	{% embed "admin/index.html.twig" %}{% endembed %}
+	
+	<div class="uk-section uk-section-default">	
+		<div class="uk-container uk-container-large">
+			<h2>Ajouter un mot clé</h2>
+			{{ form(formKeyWord) }}
+
+			<h2>Liste des mots clés</h2>
+			<table class='uk-table uk-table-hover uk-table-divider'>
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Suprimer</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for keyWord in keyWords %}
+						<tr>
+							<td>{{ keyWord.name }}</td>
+							<td>
+								<a class="uk-icon-link" uk-icon="trash" href="{{ path('keyWord_delete', {id:keyWord.id}) }}"></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</tbody>
+		</table>
+		</div>
+	</div>
+{% endblock %}

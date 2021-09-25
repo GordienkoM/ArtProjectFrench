@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block body %}
+
+<div class="uk-container-large uk-padding">
+
+    <p class="uk-text-large uk-text-center">Ici, vous pouvez choisir et acheter divers leçons de peinture ou cours de peinture. <br> 
+    Vous pouvez également réserver des cours particuliers avec un professeur.</p>
+
+    <h1>Leçons</h1>
+    <div class="uk-child-width-1-4@m uk-padding" uk-grid>
+    {% for lesson in lessons %}
+        <div>
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top uk-text-center">
+                    <div class="uk-text-center">
+                        {# Transition (Bottom) Uikit #}
+                        <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                            <img src="{{ asset('images/lessonImages/' ~ lesson.image) }}" alt="">
+                            <div class="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-default">
+                                <p class="uk-h4 uk-margin-remove"><a class="uk-link-text" href="{{ path('cart_lesson_add', {'id': lesson.id}) }}" >Acheter</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <p class="uk-texte-lead uk-text-center">{{lesson.title}}</p>
+                    <p class="uk-text-muted uk-text-small uk-text-center">{{ lesson.price}} rubles</p>
+                    <div class="uk-text-center uk-paddingmargin-bottom"><a class="uk-button uk-button-secondary uk-button-small" href="{{ path('lesson_show', {'id': lesson.id}) }}" >Savoir plus</a></div>
+                </div>               
+            </div>
+        </div>
+    {% endfor %} 
+    </div>
+
+    <h1>Cours</h1>
+    <div class="uk-child-width-1-4@m uk-padding" uk-grid>
+    {% for course in courses %}
+        <div>
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top uk-text-center">
+                    <div class="uk-text-center">
+                        {# Transition (Bottom) Uikit #}
+                        <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                            <img src="{{ asset('images/lessonImages/' ~ course.image) }}" alt="">
+                            <div class="uk-transition-slide-bottom uk-position-bottom uk-overlay uk-overlay-default">
+                                <p class="uk-h4 uk-margin-remove"><a class="uk-link-text" href="{{ path('cart_course_add', {'id': course.id}) }}" >Acheter</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body">
+                    <p class="uk-texte-lead uk-text-center">{{course.title}}</p>
+                    <p class="uk-text-muted uk-text-small uk-text-center">{{ course.price}} rubles</p>
+                    <div class="uk-text-center uk-paddingmargin-bottom"><a class="uk-button uk-button-secondary uk-button-small" href="{{ path('course_show', {'id': course.id}) }}" >Savoir plus</a></div>
+                </div>               
+            </div>
+        </div>
+    {% endfor %} 
+    </div>  
+
+</div>
+{% endblock %}
+

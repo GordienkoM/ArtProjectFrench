@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration, catégories{% endblock %}
+{% block body %}
+	{# Insertion de navigation d'administration #}
+	{% embed "admin/index.html.twig" %}{% endembed %}
+
+	<div class="uk-section uk-section-default">	
+		<div class="uk-container uk-container-large">
+			<h2>Ajouter un catégorie</h2>
+			{{ form(formCategory) }}
+
+			<h2>Liste de catégorie</h2>
+			<table class='uk-table uk-table-hover uk-table-divider'>
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Suprimer</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for category in categories %}
+						<tr>
+							<td>{{ category.name }}</td>
+							<td>
+								<a class="uk-icon-link" uk-icon="trash" href="{{ path('category_delete', {id:category.id}) }}"></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</tbody>
+		</table>
+		</div>
+	</div>
+{% endblock %}
